@@ -2,36 +2,36 @@
 #include <stdlib.h>
 
 /* function declaration */
-int max(int num1, int num2);
+char fizzbuzz(int x);
 
 int main() {
     /* local variable definition */
-    int a;
-    int b;
-    printf("Enter an integer: ");
-    scanf("%d", &a);
-    printf("Enter another integer: ");
-    scanf("%d", &b);
-    int ret;
+    int x = 15;
+    char ret;
 
-    /* calling a function to get max value */
-    ret = max(a, b);
-
-    printf("Max value is : %d\n", ret);
+    /* calling FizzBuzz */
+    ret = fizzbuzz(x);
+    printf("%s", ret);
 
     return 0;
 }
 
 /* function returning the max between two numbers */
-int max(int num1, int num2) {
+char fizzbuzz(int x) {
 
     /* local variable declaration */
-    int result;
+    char buffer[50];
+    char bang[] = "Bang!";
+    char fizz[] = "Fizz!";
+    char buzz[] = "Buzz!";
 
-    if (num1 > num2)
-        result = num1;
+    if ( x % 15 == 0)
+        return *bang;
+    else if ( x % 3 == 0)
+        return *fizz;
+    else if ( x % 5 == 0)
+        return *buzz;
     else
-        result = num2;
-
-    return result;
+        sprintf(buffer, "%d", x);
+        return *buffer;
 }
