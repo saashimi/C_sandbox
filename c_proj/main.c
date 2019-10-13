@@ -1,33 +1,40 @@
 #include <stdio.h>
+#include <string.h>
 
-char * fizzbuzz( int x );
+void fizzbuzz( int x, char* pFizzBuzz );
+void intprint( int x, char* pFizzBuzz );
 
-int main() {
-    char *pRes;
+int main( void ) {
     int i;
 
     for ( i = 1; i < 101; i ++ ) {
-        pRes = fizzbuzz( i );
-        printf("%s\n" , pRes);
+        char pFizzBuzz[6];
+        fizzbuzz( i, pFizzBuzz );
+        printf( "%s\n" , pFizzBuzz );
     }
 
     return 0;
 }
 
-char * fizzbuzz( int x )
+void fizzbuzz( int x, char* pFizzBuzz )
 {
-    static char bangv[] = "Bang!";
-    static char fizzv[] = "Fizz!";
-    static char buzzv[] = "Buzz!";
-    static char c[10];
+    const char BANG[6] = "Bang!";
+    const char FIZZ[6] = "Fizz!";
+    const char BUZZ[6] = "Buzz!";
 
     if ( x % 15 == 0 )
-        return bangv;
+        strcpy( pFizzBuzz, BANG );
     else if ( x % 3 == 0 )
-        return fizzv;
+        strcpy( pFizzBuzz, FIZZ );
     else if ( x % 5 == 0 )
-        return buzzv;
+        strcpy( pFizzBuzz, BUZZ );
     else
-        sprintf( c, "%d", x );
-        return c;
+        intprint( x, pFizzBuzz);
+}
+
+void intprint( int x, char* pFizzBuzz )
+{
+    char c[6];
+    sprintf( c, "%d", x );
+    strcpy(pFizzBuzz, c);
 }
