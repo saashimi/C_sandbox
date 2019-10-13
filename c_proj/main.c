@@ -1,20 +1,20 @@
 #include <stdio.h>
 
-char* fizzbuzz( int x );
+char * fizzbuzz( int x );
 
 int main() {
-    char *res;
+    char *pRes;
     int i;
 
     for ( i = 1; i < 101; i ++ ) {
-        res = fizzbuzz( i );
-        printf("%s\n" , res);
+        pRes = fizzbuzz( i );
+        printf("%s\n" , pRes);
     }
 
     return 0;
 }
 
-char* fizzbuzz( int x )
+char * fizzbuzz( int x )
 {
     static char bangv[] = "Bang!";
     static char fizzv[] = "Fizz!";
