@@ -4,18 +4,6 @@
 void fizzbuzz( int x, char* pFizzBuzz );
 void intprint( int x, char* pFizzBuzz );
 
-int main( void ) {
-    int i;
-
-    for ( i = 1; i < 101; i ++ ) {
-        char pFizzBuzz[6];
-        fizzbuzz( i, pFizzBuzz );
-        printf( "%s\n" , pFizzBuzz );
-    }
-
-    return 0;
-}
-
 void fizzbuzz( int x, char* pFizzBuzz )
 {
     const char BANG[6] = "Bang!";
