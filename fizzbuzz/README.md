@@ -1,4 +1,5 @@
 ## FizzBuzz
+A simple implementation of a classic programming problem. Now with unit tests!
 
 ### Lessons Learned
 - Type `make` to initiate the makefile! No need to specify the filename if it's already specified in the makefile ...
