@@ -16,19 +16,19 @@ int main() {
 	printf("Enter a second string: >> ");
 	scanf("%s", raw2);
 
-	printf("\nSize of raw1: %ld", sizeof(raw1));
-	printf("\nSize of raw2: %ld", sizeof(raw2));
+	printf("\nSize of raw1: %ld", sizeof(raw1) * (strlen(raw1) + 1));
+	printf("\nSize of raw2: %ld", sizeof(raw2) * (strlen(raw1) + 1));
 
-	int raw1sz = sizeof(raw1);
-	raw1 = realloc(raw1, raw1sz );
-	printf("\nSize of realloc raw1: %ld", sizeof(raw1));
+	int raw1sz = strlen(raw1);
+	raw1 = realloc(raw1, raw1sz + 1);
+	printf("\nSize of realloc raw1: %ld", sizeof(raw1) * strlen(raw1) + 1);
 
-	int raw2sz = sizeof(raw2);
-	raw2 = realloc(raw2, raw2sz);	
+	int raw2sz = strlen(raw2);
+	raw2 = realloc(raw2, raw2sz + 1);	
 	printf("\nSize of realloc raw2: %ld", sizeof(raw2));
 	
-	concat = malloc(sizeof(raw1sz + raw2sz));
-	printf("\nSize of concat: %ld", sizeof(concat));
+	concat = malloc(raw1sz + raw2sz + 1);
+	printf("\nSize of concat: %ld", sizeof(concat) * strlen(concat) + 1);
 
 	strcpy( concat, raw1 );
 	strcat( concat, raw2 );	
@@ -37,7 +37,7 @@ int main() {
 	free(raw1);
 	free(raw2);
 	free(concat);
-	printf("\nSize of concat when freed: %ld\n", sizeof(concat));
+	printf("\nSize of concat when freed: %ld\n", sizeof(concat) * strlen(concat) + 1);
 	
 	return 0;
 	
