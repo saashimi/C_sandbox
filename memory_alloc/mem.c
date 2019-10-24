@@ -12,11 +12,11 @@ int main() {
 	strcat( c, b );	
 	
 	printf("%s\n", c);
-	printf("\nSize of a: %ld", sizeof(a));
-	printf("\nSize of b: %ld", sizeof(a));
-	printf("\nSize of c: %ld", sizeof(a));
+	printf("\nSize of a: %ld", strlen(a));
+	printf("\nSize of b: %ld", strlen(b));
+	printf("\nSize of c: %ld", strlen(c));
 	free(c);
-	printf("\nSize of c when freed: %ld\n", sizeof(c));
+	printf("\nSize of c when freed: %ld\n", strlen(c));
 	printf("\nherpaderpa %ld\n", sizeof("herpaderpa"));
 	return 0;
 	
