@@ -3,6 +3,9 @@
 #include <string.h>
 
 int main() {
+	/* TODO MAKE A STRUCT OUT OF THIS TO HOLD INT SIZE */
+	
+	
 	char *raw1; 
 	char *raw2;
 	char *concat;
