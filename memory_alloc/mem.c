@@ -6,12 +6,10 @@ int main() {
 	char *raw1; 
 	char *raw2;
 	char *concat;
-	/*char str1;
-	char str2;*/
 
 	raw1 = malloc(64);
 	raw2 = malloc(64);
-
+	
 	printf( "Enter a string: >> ");
 	scanf("%s", raw1);
 
@@ -40,7 +38,7 @@ int main() {
 	free(raw2);
 	free(concat);
 	printf("\nSize of concat when freed: %ld\n", sizeof(concat));
-
+	
 	return 0;
 	
 }
