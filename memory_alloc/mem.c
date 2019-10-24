@@ -3,21 +3,42 @@
 #include <string.h>
 
 int main() {
-	char a[6] = "herpa";
-	char b[6] = "derpa";
-	char *c;
+	char *raw1; 
+	char *raw2;
+	char *concat;
 
-	c = malloc(11);	
-	strcpy( c, a );
-	strcat( c, b );	
+	raw1 = malloc(64);
+	raw2 = malloc(64);
 	
-	printf("%s\n", c);
-	printf("\nSize of a: %ld", strlen(a));
-	printf("\nSize of b: %ld", strlen(b));
-	printf("\nSize of c: %ld", strlen(c));
-	free(c);
-	printf("\nSize of c when freed: %ld\n", strlen(c));
-	printf("\nherpaderpa %ld\n", sizeof("herpaderpa"));
+	printf( "Enter a string: >> ");
+	scanf("%s", raw1);
+
+	printf("Enter a second string: >> ");
+	scanf("%s", raw2);
+
+	printf("\nSize of raw1: %ld", (strlen(raw1) + 1));
+	printf("\nSize of raw2: %ld", (strlen(raw1) + 1));
+
+	int raw1sz = strlen(raw1);
+	raw1 = realloc(raw1, raw1sz + 1);
+	printf("\nSize of realloc raw1: %ld", strlen(raw1) + 1);
+
+	int raw2sz = strlen(raw2);
+	raw2 = realloc(raw2, raw2sz + 1);	
+	printf("\nSize of realloc raw2: %ld", strlen(raw2) + 1);
+	
+	concat = malloc(raw1sz + raw2sz + 1);
+	printf("\nSize of concat: %ld", strlen(concat) + 1);
+
+	strcpy( concat, raw1 );
+	strcat( concat, raw2 );	
+	printf("\n%s\n", concat);
+	
+	free(raw1);
+	free(raw2);
+	free(concat);
+	printf("\nSize of concat when freed: %ld\n", strlen(concat) + 1);
+	
 	return 0;
 	
 }
