@@ -2,22 +2,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main() {
-	/* TODO MAKE A STRUCT OUT OF THIS TO HOLD INT SIZE */
-	
-	
-	char *raw1; 
-	char *raw2;
-	char *concat;
 
-	raw1 = malloc(64);
-	raw2 = malloc(64);
+struct CharAlloc {
+    int charlen;
+    char *string; 
+}	
+
+int main() {
+
+	struct CharAlloc raw1;
+        struct CharAlloc raw2;
+        struct CharAlloc concat;
+
+	//char *raw1; 
+	//char *raw2;
+	//char *concat;
+
+	raw1.string = malloc(64);
+	raw2.string = malloc(64);
 	
 	printf( "Enter a string: >> ");
-	scanf("%s", raw1);
+	scanf("%s", raw1.string);
 
 	printf("Enter a second string: >> ");
-	scanf("%s", raw2);
+	scanf("%s", raw2.string);
 
 	printf("\nSize of raw1: %ld", (strlen(raw1) + 1));
 	printf("\nSize of raw2: %ld", (strlen(raw1) + 1));
@@ -45,5 +53,3 @@ int main() {
 	return 0;
 	
 }
-
-
