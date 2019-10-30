@@ -5,8 +5,8 @@
 
 struct CharAlloc {
     int charlen;
-    char *string; 
-}	
+    char *strsz; 
+};	
 
 int main() {
 
@@ -18,37 +18,38 @@ int main() {
 	//char *raw2;
 	//char *concat;
 
-	raw1.string = malloc(64);
-	raw2.string = malloc(64);
+	raw1.strsz = malloc(64);
+	raw2.strsz = malloc(64);
 	
 	printf( "Enter a string: >> ");
-	scanf("%s", raw1.string);
+	scanf("%s", raw1.strsz);
 
 	printf("Enter a second string: >> ");
-	scanf("%s", raw2.string);
+	scanf("%s", raw2.strsz);
 
-	printf("\nSize of raw1: %ld", (strlen(raw1) + 1));
-	printf("\nSize of raw2: %ld", (strlen(raw1) + 1));
+	printf("\nSize of raw1: %ld", (strlen(raw1.strsz) + 1));
+	printf("\nSize of raw2: %ld", (strlen(raw1.strsz) + 1));
 
-	int raw1sz = strlen(raw1);
-	raw1 = realloc(raw1, raw1sz + 1);
-	printf("\nSize of realloc raw1: %ld", strlen(raw1) + 1);
+	raw1.charlen = strlen(raw1.strsz);
+	raw1.strsz = realloc(raw1.strsz, raw1.charlen + 1);
+	printf("\nSize of realloc raw1: %d", raw1.charlen + 1);
 
-	int raw2sz = strlen(raw2);
-	raw2 = realloc(raw2, raw2sz + 1);	
-	printf("\nSize of realloc raw2: %ld", strlen(raw2) + 1);
+	raw2.charlen = strlen(raw2.strsz);
+	raw2.strsz = realloc(raw2.strsz, raw2.charlen + 1);	
+	printf("\nSize of realloc raw2: %d", raw2.charlen + 1);
 	
-	concat = malloc(raw1sz + raw2sz + 1);
-	printf("\nSize of concat: %ld", strlen(concat) + 1);
-
-	strcpy( concat, raw1 );
-	strcat( concat, raw2 );	
-	printf("\n%s\n", concat);
+	concat.strsz = malloc(raw1.charlen + raw2.charlen + 1);
+	strcpy( concat.strsz, raw1.strsz );
+	strcat( concat.strsz, raw2.strsz );	
+	concat.charlen = strlen(concat.strsz);
 	
-	free(raw1);
-	free(raw2);
-	free(concat);
-	printf("\nSize of concat when freed: %ld\n", strlen(concat) + 1);
+        printf("\n%s\n", concat.strsz);
+	printf("\nSize of concat: %d", concat.charlen + 1);
+	
+	free(raw1.strsz);
+	free(raw2.strsz);
+	free(concat.strsz);
+	printf("\nSize of concat when freed: %ld\n", strlen(concat.strsz) + 1);
 	
 	return 0;
 	
