@@ -14,10 +14,6 @@ int main() {
         struct CharAlloc raw2;
         struct CharAlloc concat;
 
-	//char *raw1; 
-	//char *raw2;
-	//char *concat;
-
 	raw1.strsz = malloc(64);
 	raw2.strsz = malloc(64);
 	
