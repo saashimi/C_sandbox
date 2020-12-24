@@ -3,14 +3,20 @@
 #include <stdio.h>
 
 int main(void) {
-    char array[10][10] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
-    char cpy_array[10][10];
+    char array[10][6] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
     
+    char **strings = malloc(10 * 10); //pointer to pointer
     for (int i = 0; i < 10; ++i) {
-        strcpy(cpy_array[i], array[i]);
+        strings[i] = malloc(6);
+        strcpy(strings[i], array[i]);
     }
-    for (int i= 0; i < 10; ++i)
-        printf("%s\n", cpy_array[i]);
     
+    for (int i= 0; i < 10; ++i)
+        printf("%s\n", strings[i]);
+    
+    for (int i = 0; i < 10; ++i)
+        free(strings[i]);
+    free(strings);
+
     return 0;
 }
