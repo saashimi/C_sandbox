@@ -20,8 +20,8 @@ char * parse_string_to_array(char *array_ptr[], char *input_text, int *arraylen,
 {
     char input_copy[(MAX_WORD_LENGTH * 20) + 1];
     char *temp_word_ptr;
-    int state, orig_index, offset, counter, current_word;
-    orig_index = offset = counter = current_word = 0;
+    int state, orig_index, offset, counter, current_word, malloc_ctr, free_ctr;
+    orig_index = offset = counter = current_word = malloc_ctr = free_ctr = 0;
     
     // copy to temp array
     strcpy(input_copy, input_text);
@@ -69,9 +69,10 @@ char * parse_string_to_array(char *array_ptr[], char *input_text, int *arraylen,
                             break;
                         }
                         else {
-                            temp_word_ptr = malloc((MAX_WORD_LENGTH + 1) * sizeof(char));
-                            array_ptr[current_word] = strncpy(temp_word_ptr, input_copy +
-                                                          offset, counter);
+                            array_ptr[current_word] = malloc((MAX_WORD_LENGTH + 1) * sizeof(char));
+                            strncpy(array_ptr[current_word], input_copy + offset, counter);
+                            ++malloc_ctr;
+                            printf("malloc_ctr is %d\n", malloc_ctr);
                             state = OUT;
                             offset = orig_index;
                             ++offset;
@@ -84,11 +85,10 @@ char * parse_string_to_array(char *array_ptr[], char *input_text, int *arraylen,
             default:
                 ;
         }
-        if (state == OUT) {
+        if (state == OUT)
             state = IN;
-        }
+
     }
-    free(temp_word_ptr);
     return *array_ptr;
 }
 
@@ -159,7 +159,7 @@ int main()
     
     char *input_text = "one fish two fish red fish blue fish BIG FISH";
     word_count_word_t *words = malloc( (MAX_WORDS + 1) * sizeof(struct word_count_word));
-    char *parsed_array_ptr[MAX_WORDS + 10];
+    char **parsed_array_ptr = malloc( (MAX_WORDS + 10) * (MAX_WORD_LENGTH) * sizeof(char) );
     
     int err_too_long, err_excess_wds;
     err_too_long = err_excess_wds = 0;
@@ -171,10 +171,17 @@ int main()
     convert_to_lower_case(parsed_array_ptr, &arraylen);
     add_words_to_struct(parsed_array_ptr, words, &arraylen, &err_excess_wds);
     get_unique_words(words, &unique_words);
+    
+    for (int i = 0; i < arraylen; ++i) {
+        free(parsed_array_ptr[i]);
+        printf("free_ctr is %d\n", i);
+    }
+    
+    free(parsed_array_ptr);
     free(words);
 
-    //for (int i = 0; i < MAX_WORDS; ++i)
-    //    printf("%s %d\n", words_ptr[i].text, words_ptr[i].count);
+    for (int i = 0; i < MAX_WORDS; ++i)
+        printf("%s %d\n", words[i].text, words[i].count);
 
     // Return found error codes or final word count
     if (err_too_long == EXCESSIVE_LENGTH_WORD)
