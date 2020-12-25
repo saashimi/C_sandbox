@@ -15,11 +15,10 @@ typedef struct word_count_word {
    int count;
 } word_count_word_t;
 
-char * parse_string_to_array(char *array_ptr[], char *input_text, int *arraylen,
+char * parse_string_to_array(char **array_ptr, char *input_text, int *arraylen,
                              int *err_too_long)
 {
     char input_copy[(MAX_WORD_LENGTH * 20) + 1];
-    char *temp_word_ptr;
     int state, orig_index, offset, counter, current_word, malloc_ctr, free_ctr;
     orig_index = offset = counter = current_word = malloc_ctr = free_ctr = 0;
     
@@ -103,7 +102,8 @@ char * convert_to_lower_case(char *array_ptr[], int *arraylen)
 }
 
 /* Check that if a word already exists in an word_count_word_t array */
-int check_exists(word_count_word_t words[], char *search_word_ptr) {
+int check_exists(word_count_word_t words[], char *search_word_ptr)
+{
  for (int i = 0; i < MAX_WORDS; ++i) {
         if (strcmp(words[i].text, search_word_ptr) == 0) {
             return 1;
@@ -112,7 +112,7 @@ int check_exists(word_count_word_t words[], char *search_word_ptr) {
     return 0;
 }
 
-word_count_word_t * add_words_to_struct(char *array_ptr[], word_count_word_t *words,
+word_count_word_t * add_words_to_struct(char **array_ptr, word_count_word_t *words,
                                         int *arraylen, int *err_excess_wds)
 {
     // Add words to word_count_word_t in order of appearance, eliminate duplicates
@@ -151,12 +151,16 @@ int get_unique_words(word_count_word_t words[], int *unique_words)
     return *unique_words;
 }
 
+void free_alloc_mem(char *array_ptr[], int *arraylen)
+{
+    for (int i = 0; i < *arraylen; ++i) {
+        free(array_ptr[i]);
+        printf("free_ctr is %d\n", i + 1);
+    }
+}
+
 int main()
 {
-    /* Function copies parsed input strings by copying to an array referenced by
-     array_ptr. This array is further parsed for duplicates and casing before
-     word text and count properties are added to word_count_word_t words */
-    
     char *input_text = "one fish two fish red fish blue fish BIG FISH";
     word_count_word_t *words = malloc( (MAX_WORDS + 1) * sizeof(struct word_count_word));
     char **parsed_array_ptr = malloc( (MAX_WORDS + 10) * (MAX_WORD_LENGTH) * sizeof(char) );
@@ -172,11 +176,8 @@ int main()
     add_words_to_struct(parsed_array_ptr, words, &arraylen, &err_excess_wds);
     get_unique_words(words, &unique_words);
     
-    for (int i = 0; i < arraylen; ++i) {
-        free(parsed_array_ptr[i]);
-        printf("free_ctr is %d\n", i);
-    }
-    
+    // Free all allocated memory
+    free_alloc_mem(parsed_array_ptr, &arraylen);
     free(parsed_array_ptr);
     free(words);
 
